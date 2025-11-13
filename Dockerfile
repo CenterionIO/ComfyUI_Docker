@@ -1,5 +1,5 @@
 # Base NVIDIA runtime image for 5090+ (CUDA 12.8)
-FROM nvcr.io/nvidia/pytorch:2.7.0-cuda12.8-cudnn9-runtime
+FROM nvcr.io/nvidia/pytorch:25.01-py3
 
 WORKDIR /workspace
 
