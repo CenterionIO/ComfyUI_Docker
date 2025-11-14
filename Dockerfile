@@ -29,8 +29,13 @@ RUN git clone --depth=1 https://github.com/Comfy-Org/ComfyUI-Manager.git custom_
 # --- Create default model folders
 RUN mkdir -p /workspace/ComfyUI/models/{checkpoints,clip_vision,text_encoders,loras,vae}
 
+# --- Copy and setup entrypoint
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 # --- Expose ComfyUI default port
 EXPOSE 8188
 
-# --- Launch
-CMD ["python", "main.py", "--listen", "0.0.0.0", "--port", "8188"]
+# --- Set working directory and entrypoint
+WORKDIR /workspace
+ENTRYPOINT ["/entrypoint.sh"]
