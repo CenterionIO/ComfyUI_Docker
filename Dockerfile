@@ -1,9 +1,9 @@
 # ====================================================================
-# ComfyUI + Manager Runtime (CUDA 12.8 / cuDNN 9 / PyTorch 2.9)
+# ComfyUI + Manager Runtime (CUDA 12.8 / cuDNN 9 / PyTorch 2.7)
 # Compatible with RTX 5090 and newer
 # ====================================================================
 
-FROM pytorch/pytorch:2.9.0-cuda12.8-cudnn9-runtime
+FROM pytorch/pytorch:2.7.0-cuda12.8-cudnn9-runtime
 
 # --- System setup
 ENV DEBIAN_FRONTEND=noninteractive
