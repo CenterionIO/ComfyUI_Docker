@@ -13,6 +13,10 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
     git wget curl ffmpeg libsm6 libxext6 \
  && rm -rf /var/lib/apt/lists/*
 
+# --- Install JupyterLab and code-server
+RUN pip install --no-cache-dir jupyterlab && \
+    curl -fsSL https://code-server.dev/install.sh | sh
+
 # --- Clone and install ComfyUI
 RUN git clone --depth=1 https://github.com/comfyanonymous/ComfyUI.git
 WORKDIR /workspace/ComfyUI
@@ -33,8 +37,10 @@ RUN mkdir -p /workspace/ComfyUI/models/{checkpoints,clip_vision,text_encoders,lo
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# --- Expose ComfyUI default port
+# --- Expose ports
 EXPOSE 8188
+EXPOSE 8888
+EXPOSE 8080
 
 # --- Set working directory and entrypoint
 WORKDIR /workspace

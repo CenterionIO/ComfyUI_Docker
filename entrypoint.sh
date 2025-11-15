@@ -21,6 +21,18 @@ if [ ! -d "/workspace/ComfyUI" ]; then
     mkdir -p models/{checkpoints,clip_vision,text_encoders,loras,vae}
 fi
 
+# Start JupyterLab in background if ENABLE_JUPYTER=true
+if [ "$ENABLE_JUPYTER" = "true" ]; then
+    echo "Starting JupyterLab on port 8888..."
+    jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password='' &
+fi
+
+# Start code-server in background if ENABLE_CODESERVER=true
+if [ "$ENABLE_CODESERVER" = "true" ]; then
+    echo "Starting code-server on port 8080..."
+    code-server --bind-addr 0.0.0.0:8080 --auth none /workspace &
+fi
+
 # Navigate to ComfyUI and run
 cd /workspace/ComfyUI
 exec python main.py --listen 0.0.0.0 --port 8188 "$@"
