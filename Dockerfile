@@ -23,6 +23,10 @@ WORKDIR /workspace/ComfyUI
 # Install base requirements
 RUN pip install --no-cache-dir -r requirements.txt
 
+# --- Install SageAttention (requires CUDA toolkit from devel image)
+RUN pip install --no-cache-dir triton && \
+    pip install --no-cache-dir sageattention==2.2.0 --no-build-isolation
+
 # --- Install ComfyUI Manager (official)
 RUN git clone --depth=1 https://github.com/Comfy-Org/ComfyUI-Manager.git custom_nodes/ComfyUI-Manager \
  && if [ -f custom_nodes/ComfyUI-Manager/requirements.txt ]; then \
