@@ -21,12 +21,6 @@ if [ ! -d "/workspace/ComfyUI" ]; then
     mkdir -p models/{checkpoints,clip_vision,text_encoders,loras,vae}
 fi
 
-# Start JupyterLab in background (disable with ENABLE_JUPYTER=false)
-if [ "$ENABLE_JUPYTER" != "false" ]; then
-    echo "Starting JupyterLab on port 8888..."
-    jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password='' &
-fi
-
 # Start code-server in background (disable with ENABLE_CODESERVER=false)
 if [ "$ENABLE_CODESERVER" != "false" ]; then
     echo "Starting code-server on port 8080..."

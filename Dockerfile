@@ -3,7 +3,7 @@
 # Compatible with RTX 5090 and newer
 # ====================================================================
 
-FROM pytorch/pytorch:2.7.0-cuda12.8-cudnn9-runtime
+FROM pytorch/pytorch:2.7.0-cuda12.8-cudnn9-devel
 
 # --- System setup
 ENV DEBIAN_FRONTEND=noninteractive
@@ -13,9 +13,8 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
     git wget curl ffmpeg libsm6 libxext6 \
  && rm -rf /var/lib/apt/lists/*
 
-# --- Install JupyterLab and code-server
-RUN pip install --no-cache-dir jupyterlab && \
-    curl -fsSL https://code-server.dev/install.sh | sh
+# --- Install code-server
+RUN curl -fsSL https://code-server.dev/install.sh | sh
 
 # --- Clone and install ComfyUI
 RUN git clone --depth=1 https://github.com/comfyanonymous/ComfyUI.git
@@ -39,7 +38,6 @@ RUN chmod +x /entrypoint.sh
 
 # --- Expose ports
 EXPOSE 8188
-EXPOSE 8888
 EXPOSE 8080
 
 # --- Set working directory and entrypoint
